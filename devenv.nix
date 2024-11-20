@@ -8,10 +8,16 @@
   packages = [ pkgs.git ];
 
   # https://devenv.sh/languages/
-  # languages.rust.enable = true;
+  languages.rust = {
+    enable = true;
+    # https://devenv.sh/reference/options/#languagesrustchannel
+    channel = "stable";
+
+    components = [ "rustc" "cargo" "clippy" "rustfmt" "rust-analyzer" ];
+  };
 
   # https://devenv.sh/processes/
-  # processes.cargo-watch.exec = "cargo-watch";
+  processes.cargo-watch.exec = "cargo-watch";
 
   # https://devenv.sh/services/
   # services.postgres.enable = true;
@@ -25,6 +31,7 @@
     hello
     git --version
   '';
+  cachix.enable = false;
 
   # https://devenv.sh/tasks/
   # tasks = {
