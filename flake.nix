@@ -8,21 +8,31 @@
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
   };
 
-  outputs = { self, nixpkgs, fenix, ... }@inputs:
+  outputs =
+    {
+      self,
+      nixpkgs,
+      fenix,
+      ...
+    }@inputs:
     let
       inherit (nixpkgs) lib;
       forEachSystem = nixpkgs.lib.genAttrs nixpkgs.lib.systems.flakeExposed;
-    in {
-      devShells = forEachSystem (system:
+    in
+    {
+      devShells = forEachSystem (
+        system:
         let
           pkgs = import nixpkgs {
             inherit system;
             overlays = [ fenix.overlays.default ];
           };
-        in {
+        in
+        {
           default = pkgs.mkShell {
             nativeBuildInputs = [ pkgs.fenix.stable.toolchain ];
           };
-        });
+        }
+      );
     };
 }
