@@ -30,8 +30,8 @@ pub struct Token {
 }
 
 impl Token {
-    pub fn new(self, token_type: TokenType) -> Token {
-        let literal = match self.token_type {
+    pub fn new(token_type: TokenType) -> Token {
+        let literal = match token_type {
             TokenType::Assign => "=",
             TokenType::Plus => "+",
             TokenType::Lparen => "(",
@@ -48,20 +48,6 @@ impl Token {
             literal: literal.to_string(),
         }
     }
-    // pub fn token_literal(&self) -> &str {
-    //     match self.token_type {
-    //         TokenType::Assign => "=",
-    //         TokenType::Plus => "+",
-    //         TokenType::Lparen => "(",
-    //         TokenType::Rparen => ")",
-    //         TokenType::Lbrace => "{",
-    //         TokenType::Rbrace => "}",
-    //         TokenType::Comma => ",",
-    //         TokenType::Semicolon => ";",
-    //         TokenType::Eof => "",
-    //         _ => panic!("Not implemented"),
-    //     }
-    // }
 }
 
 #[cfg(test)]
@@ -69,7 +55,8 @@ mod tests {
     use super::{Token, TokenType};
 
     #[test]
-    fn exploration() {
+    fn test_next_token() {
+        let input = "=+(){},;";
         let expected = [
             Token {
                 token_type: TokenType::Assign,
